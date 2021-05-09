@@ -32,24 +32,42 @@ if __name__ == '__main__':
   # Open the output file and loop through each keyword one by one
   with open(args.out, 'w+', encoding='utf-8') as output_file:
     csv_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    csv_writer.writerow(['Product', 'Product Type', 'Unit Cost', 'Quantity', 'Line Total'])
+    csv_writer.writerow(['ID', 'Name', 'Type', 'Cost', 'Quantity', 'Total'])
 
     # Connect to Shopify, and get a list of products.
-    with shopify.Session.temp(apiURL, apiVersion, apiPasswd):
-      print(shopify.GraphQL().execute("{ shop { name id } }"))
+    session = shopify.Session(apiURL, apiVersion, apiPasswd)
+    shopify.ShopifyResource.activate_session(session)
+
+    runningQty = 0
+    runningTotal = 0
 
     # Showing a progress bar to the user.
-    with Bar('Processing products.', max=100) as bar:
+    with Bar('Processing products:') as bar:
       
-      productName = ""
-      productType = ""
-      productCost = 0
-      productQty = 0
-      productTotal = 0
+      for product in shopify.Product.find():
+        productID = product.id
+        productName = product.title
+        productType = product.product_type
+        productCost = 0
+        productQty = 0
+        productTotal = 0
+        for variant in product.variants:
+          productCost =+ float(variant.price)
+          productQty =+ int(variant.inventory_quantity)
+          productTotal =+ round(productCost * productQty,2)
 
-      # Write the data for this row to the csv file.
-      csv_writer.writerow([productName, productType, productCost, productQty, productTotal])
-      bar.next()
+        runningQty =+ productQty
+        runningTotal =+ productTotal
+
+        # Write the data for this row to the csv file.
+        csv_writer.writerow([productID, productName, productType, productCost, productQty, productTotal])
+
+        bar.next()
+
+    csv_writer.writerow(["", "", "", "", runningQty, runningTotal])
+
+    # Close the Shopify session
+    shopify.ShopifyResource.clear_session()
 
     # Close the output file
     output_file.close()

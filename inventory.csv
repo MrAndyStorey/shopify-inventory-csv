@@ -1,2 +1,52 @@
-Product,Product Type,Unit Cost,Quantity,Line Total
-,,0,0,0
+ID,Name,Type,Cost,Quantity,Total
+9052246791,7-Eleven Retro Cotton Cycling Cap,Cotton Caps,8.99,37,332.63
+151378460692,Acqua & Sapone Focus Pro Team Musette,Musettes,4.99,0,0.0
+1301396521086,ADR Agrigel 1989 Retro Cotton Cycling Cap,Cotton Caps,9.99,43,429.57
+2214351274087,ADR Agrigel 1989 Retro PhonePac2,Accessories,4.99,46,229.54
+9052100103,ADR/Agrigel 1989 Retro Team Bib Shorts (MAX2 Insert),Bibshorts,34.99,0,0.0
+3832078794855,ADR/Agrigel/Bottecchia 1989 Retro Long Sleeve Jersey,Jerseys,59.99,0,0.0
+9052101191,ADR/Agrigel/Bottecchia 1989 Retro Team Jersey,Jerseys,34.99,0,0.0
+2252522389607,ADR/Agrigel/Bottecchia 1989 Retro Team Jersey (14cm Zip),Jerseys,29.99,0,0.0
+37474828308,Ag2R La Mondiale / Factor / Giessegi 2017 Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+3938490810471,Ag2R La Mondiale / OW 2016 Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+2206093115495,AG2R La Mondiale 2020 Cycling Cap,Cotton Caps,4.99,10,49.9
+151344021524,Ag2R La Mondiale Descente 2014 Musette,Musettes,4.99,0,0.0
+9052193607,AKI-Gipiemme Belgian-Style Winter Hat,Winter hats,9.95,0,0.0
+151156195348,Aldro / Eddy Merckx Cycling Team Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+9052141767,Alfa Lum/Colnago/STM Riduttori Retro Cotton Cycling Cap,Cotton Caps,8.99,70,629.3
+9052243527,Amore & Vita Belgian-Style Winter Hat,Winter hats,4.95,0,0.0
+2207919407207,Androni Giocattoli Sidermec 2020 Cycling Cap,Cotton Caps,4.99,5,24.95
+11013153556,Armée de Terre Team Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+151156555796,Astana Pro Team 2016 Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+4512235683943,Bahrain McLaren 2020 Cycling Cap,Cotton Caps,8.99,57,512.43
+151347068948,BAKU Cycling Project Team Musette,Musettes,4.99,0,0.0
+72799780884,Banesto Team Retro Cotton Cycling Cap,Cotton Caps,8.99,74,665.26
+4512157597799,Bardiani CSF Faizanè 2020 Cycling Cap,Cotton Caps,4.99,29,144.71
+2208123486311,Bardiani CSF Guerciotti 2019 Team Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+11705997268,Belgian Champion / Ag2R La Mondiale Team Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+145156702228,Belkin Pro Cycling Team 2014 Cotton Cycling Cap,Cotton Caps,4.99,0,0.0
+1966222639207,Bend36 Mens Chamois Cream,Accessories,13.49,33,445.17
+1966254162023,Bend36 Womens Chamois Cream,Accessories,6.99,0,0.0
+4572855664743,Bianchi Cycling Cap - Black Check SS2020,Cotton Caps,16.99,89,1512.11
+4572830335079,Bianchi Cycling Cap - Faster Dots SS2020,Cotton Caps,16.99,51,866.49
+4741548474471,Bianchi Cycling Cap - Finish Line,Cotton Caps,8.99,189,1699.11
+4572815622247,Bianchi Cycling Cap - Gingham Check SS2020,Cotton Caps,16.99,36,611.64
+2176232947815,Bianchi Cycling Cap - Neon Black,Cotton Caps,13.99,0,0.0
+4617969270887,Bianchi Cycling Cap - Neon Black SS2020,Cotton Caps,12.99,82,1065.18
+2194604851303,Bianchi Cycling Cap - Neon Black/Grey,Cotton Caps,13.99,0,0.0
+2176291536999,Bianchi Cycling Cap - Neon Blue,Cotton Caps,13.99,0,0.0
+4617963602023,Bianchi Cycling Cap - Neon Blue SS2020,Cotton Caps,14.99,10,149.9
+2176244547687,Bianchi Cycling Cap - Neon Celeste,Cotton Caps,13.99,0,0.0
+2176283803751,Bianchi Cycling Cap - Neon Celeste Polka SS2020,Cotton Caps,12.99,61,792.39
+4725671264359,Bianchi Cycling Cap - Neon Large Polka Dots SS2019,Cotton Caps,12.99,0,0.0
+4617980215399,Bianchi Cycling Cap - Neon Orange SS2020,Cotton Caps,12.99,61,792.39
+2176250380391,Bianchi Cycling Cap - Neon White,Cotton Caps,13.99,0,0.0
+4741558698087,Bianchi Cycling Cap - Officina Meccanica,Cotton Caps,8.99,144,1294.56
+4572772401255,Bianchi Cycling Cap - Polka Dot SS2020,Cotton Caps,16.99,17,288.83
+4613382897767,Bianchi Cycling Cap - White Celeste SS2020,Cotton Caps,16.99,81,1376.19
+4613377228903,Bianchi Cycling Cap - White Check SS2020,Cotton Caps,16.99,43,730.57
+2194831474791,Bianchi Milano Legend Bib shorts,Bibshorts,44.99,0,0.0
+2176938180711,Bianchi Milano Pride Black Jersey,Jerseys,49.99,0,0.0
+2176896729191,Bianchi Milano Pride Celeste Jersey,Jerseys,44.99,0,0.0
+9052254215,Bianchi/Piaggio Retro Cotton Cycling Cap,Cotton Caps,8.99,53,476.47
+,,,,53,476.47
