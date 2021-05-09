@@ -26,7 +26,6 @@ apiKey = os.getenv("SHOPIFY_API_KEY")
 apiPasswd = os.getenv("SHOPIFY_API_SECRET")
 apiURL = os.getenv("SHOPIFY_URL")
 apiVersion = os.getenv("SHOPIFY_API_VERSION")
-baseURL = "https://{}:{}@{}/admin/api/{}/".format(apiKey,apiPasswd,apiURL,apiVersion)
 
 if __name__ == '__main__':
 
