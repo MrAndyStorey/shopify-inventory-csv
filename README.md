@@ -28,3 +28,11 @@ This project includes an example of a .env files that you need to create to allo
 ```
 cp .env.local .env
 ```
+
+
+## MacOS - SSL Certificate Error messages
+If this is the first time you are running requests using SSL, you might numerous errors on the CLI when running the Python file such as:
+```
+SSLError: [SSL: CERTIFICATE_VERIFY_FAILED]
+```
+If this is th case, as it was for me, check out the following [stackoverflow.com answer](https://stackoverflow.com/questions/42098126/mac-osx-python-ssl-sslerror-ssl-certificate-verify-failed-certificate-verify/42098127#42098127) that helped solve the issue for me.
