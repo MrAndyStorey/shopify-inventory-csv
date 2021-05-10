@@ -15,6 +15,9 @@ import shopify
 # Allow the user to pass the output CSV file via a CLI argument.
 parser = argparse.ArgumentParser(description='')
 parser.add_argument("--out", default="inventory.csv", type=str, help="Output filename - default = inventory.csv.")
+parser.add_argument("--suppress", default=True, type=bool, help="Suppress products from the output filename that have zero inventory, makes for a tidier csv file - default = True.")
+parser.add_argument("--factor", default=1, type=int, help="Sometimes it is helpful to increase/decrease the stock level to make projections - default = 1.")
+parser.add_argument("--location", default="shopify", type=str, help="Only include stock that is handled by shopify - default = shopify.")
 args = parser.parse_args()
 
 # Load the environment variables from .env.
@@ -41,30 +44,54 @@ if __name__ == '__main__':
     runningQty = 0
     runningTotal = 0
 
+    # First get a total count of the products from shopify.  This gives a maxcount figure for the progress bar.
+    maxCount = shopify.Product.count()
+    currentCount = 0
+    
     # Showing a progress bar to the user.
-    with Bar('Processing products:') as bar:
+    with Bar('Processing ' + str(maxCount) + ' products.', max=maxCount) as bar:
       
-      for product in shopify.Product.find():
-        productID = product.id
-        productName = product.title
-        productType = product.product_type
-        productCost = 0
-        productQty = 0
-        productTotal = 0
-        for variant in product.variants:
-          productCost =+ float(variant.price)
-          productQty =+ int(variant.inventory_quantity)
-          productTotal =+ round(productCost * productQty,2)
+      products = shopify.Product.find()
+      while currentCount < maxCount:
+      
+        for product in products:
+          currentCount += 1
+          productID = product.id
+          productName = product.title
+          productLocation = ""
+          productType = product.product_type
+          productCost = 0
+          productQty = 0
+          productTotal = 0
+          for variant in product.variants:
+            productLocation = variant.inventory_management
+            if productLocation == args.location:
+              if productCost == 0:
+                # Unforetunately, the product cost is not held along with the rest of the variant data.
+                # It is held as an inventory item.   So we will have to get it via a separate API call.
+                inv_item = shopify.InventoryItem.find(variant.inventory_item_id)
+                if inv_item.cost is not None:
+                  productCost = float(inv_item.cost)
 
-        runningQty =+ productQty
-        runningTotal =+ productTotal
+              productQty += round(int(variant.inventory_quantity) * args.factor,0)
+              productTotal += round(productCost * productQty,2)
 
-        # Write the data for this row to the csv file.
-        csv_writer.writerow([productID, productName, productType, productCost, productQty, productTotal])
+          # Write the product data for this row to the csv file.
+          if productLocation == args.location:
+            runningQty += productQty
+            runningTotal += productTotal
 
-        bar.next()
+            if productQty > 0:
+              csv_writer.writerow([productID, productName, productType, productCost, productQty, productTotal])
+            else:
+              if args.suppress is False:
+                csv_writer.writerow([productID, productName, productType, productCost, productQty, productTotal])
 
-    csv_writer.writerow(["", "", "", "", runningQty, runningTotal])
+          bar.next()
+        next_url = products.next_page_url
+        products = shopify.Product.find(from_=next_url)
+
+    csv_writer.writerow(["", "", "", "", runningQty, round(runningTotal,2)])
 
     # Close the Shopify session
     shopify.ShopifyResource.clear_session()
