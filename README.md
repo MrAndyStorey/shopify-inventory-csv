@@ -2,7 +2,7 @@
 ## Introduction
 Every year my accountant asks for a inventory run down of [my online store](https://www.prendas.co.uk/) that runs on Shopify.  So I decided to make my life easier on June 30th and write this Python script to do all the hard work for me.  
 
-It takes a single argument for the output file (-out).  The default is inventory.csv.
+It takes the following arguments from the CLI.  
 * --out  (Output filename.  Default: inventory.csv)
 * --suppress  (Suppress products from the output filename that have zero inventory, makes for a tidier csv file.  Default: True)
 * --factor. (Sometimes it is helpful to increase/decrease the stock level to make projections.  Default = 1)
