@@ -7,7 +7,7 @@ It takes a single argument for the output file (-out).  The default is inventory
 * --suppress  (Suppress products from the output filename that have zero inventory, makes for a tidier csv file.  Default: True)
 * --factor. (Sometimes it is helpful to increase/decrease the stock level to make projections.  Default = 1)
 * --location. (Only include stock that is handled by shopify.  Default: shopify)
-* --delay. (Unless you are on Shipify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 2.5)
+* --delay. (Unless you are on Shopify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 3)
 
 ## Packages Used
 We will be using:
