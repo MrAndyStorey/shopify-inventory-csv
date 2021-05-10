@@ -19,6 +19,8 @@ parser.add_argument("--out", default="inventory.csv", type=str, help="Output fil
 parser.add_argument("--suppress", default=True, type=bool, help="Suppress products from the output filename that have zero inventory, makes for a tidier csv file - default = True.")
 parser.add_argument("--factor", default=1, type=int, help="Sometimes it is helpful to increase/decrease the stock level to make projections - default = 1.")
 parser.add_argument("--location", default="shopify", type=str, help="Only include stock that is handled by shopify - default = shopify.")
+parser.add_argument("--delay", default=3, type=int, help="Unless you are on Shipify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 3")
+
 args = parser.parse_args()
 
 # Load the environment variables from .env.
@@ -56,6 +58,8 @@ if __name__ == '__main__':
       while currentCount < maxCount:
       
         for product in products:
+          time.sleep(args.delay)
+
           currentCount += 1
           productID = product.id
           productName = product.title
@@ -90,12 +94,8 @@ if __name__ == '__main__':
 
           bar.next()
 
-        time.sleep(60*2)   # Delays for 60seconds to stop Shopify/CloudFlare complaining about too many requests.
-
-
         next_url = products.next_page_url
         products = shopify.Product.find(from_=next_url)
-
 
     csv_writer.writerow(["", "", "", "", runningQty, round(runningTotal,2)])
 
