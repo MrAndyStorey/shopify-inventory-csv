@@ -2,6 +2,7 @@
 import sys
 import os
 import csv
+import time
 
 import argparse
 
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     csv_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     csv_writer.writerow(['ID', 'Name', 'Type', 'Cost', 'Quantity', 'Total'])
 
-    # Connect to Shopify, and get a list of products.
+    # Connect to Shopify
     session = shopify.Session(apiURL, apiVersion, apiPasswd)
     shopify.ShopifyResource.activate_session(session)
 
@@ -88,8 +89,13 @@ if __name__ == '__main__':
                 csv_writer.writerow([productID, productName, productType, productCost, productQty, productTotal])
 
           bar.next()
+
+        time.sleep(60*2)   # Delays for 60seconds to stop Shopify/CloudFlare complaining about too many requests.
+
+
         next_url = products.next_page_url
         products = shopify.Product.find(from_=next_url)
+
 
     csv_writer.writerow(["", "", "", "", runningQty, round(runningTotal,2)])
 
