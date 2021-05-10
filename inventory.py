@@ -63,7 +63,7 @@ if __name__ == '__main__':
           productType = product.product_type
           productCost = 0
           productQty = 0
-          productTotal = 0
+
           for variant in product.variants:
             productLocation = variant.inventory_management
             if productLocation == args.location:
@@ -73,9 +73,9 @@ if __name__ == '__main__':
                 inv_item = shopify.InventoryItem.find(variant.inventory_item_id)
                 if inv_item.cost is not None:
                   productCost = float(inv_item.cost)
-
               productQty += round(int(variant.inventory_quantity) * args.factor,0)
-              productTotal += round(productCost * productQty,2)
+          
+          productTotal = round(productCost * productQty,2)
 
           # Write the product data for this row to the csv file.
           if productLocation == args.location:
