@@ -19,7 +19,7 @@ parser.add_argument("--out", default="inventory.csv", type=str, help="Output fil
 parser.add_argument("--suppress", default=True, type=bool, help="Suppress products from the output filename that have zero inventory, makes for a tidier csv file - default = True.")
 parser.add_argument("--factor", default=1, type=int, help="Sometimes it is helpful to increase/decrease the stock level to make projections - default = 1.")
 parser.add_argument("--location", default="shopify", type=str, help="Only include stock that is handled by shopify - default = shopify.")
-parser.add_argument("--delay", default=3, type=int, help="Unless you are on Shipify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 3")
+parser.add_argument("--delay", default=3, type=int, help="Unless you are on Shopify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 3")
 
 args = parser.parse_args()
 
