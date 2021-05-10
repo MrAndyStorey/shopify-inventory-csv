@@ -2,12 +2,12 @@
 ## Introduction
 Every year my accountant asks for a inventory run down of [my online store](https://www.prendas.co.uk/) that runs on Shopify.  So I decided to make my life easier on June 30th and write this Python script to do all the hard work for me.  
 
-It uses a variety of GraphQL calls to get the data.  The [reference of which is available here](https://shopify.dev/docs/admin-api/graphql/reference) and I used the [Shopify GraphiQL App Docs sidebar](https://shopify-graphiql-app.shopifycloud.com/) which I found to be a useful tool during development.
-
 It takes a single argument for the output file (-out).  The default is inventory.csv.
-```
-inventory.py -out 
-```
+* --out  (Output filename.  Default: inventory.csv)
+* --suppress  (Suppress products from the output filename that have zero inventory, makes for a tidier csv file.  Default: True)
+* --factor. (Sometimes it is helpful to increase/decrease the stock level to make projections.  Default = 1)
+* --location. (Only include stock that is handled by shopify.  Default: shopify)
+* --delay. (Unless you are on Shipify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 2.5)
 
 ## Packages Used
 We will be using:
