@@ -3,6 +3,7 @@ import sys
 import os
 import csv
 import time
+import logging
 
 import argparse
 
@@ -12,6 +13,8 @@ from progress.bar import Bar
 
 import shopify
 
+# Logging Setup
+logging.basicConfig(format='%(process)d-%(levelname)s-%(message)s', filename='inventory.log', filemode='w', level=logging.INFO)
 
 # Allow the user to pass the output CSV file via a CLI argument.
 parser = argparse.ArgumentParser(description='')
@@ -19,7 +22,7 @@ parser.add_argument("--out", default="inventory.csv", type=str, help="Output fil
 parser.add_argument("--suppress", default=True, type=bool, help="Suppress products from the output filename that have zero inventory, makes for a tidier csv file - default = True.")
 parser.add_argument("--factor", default=1, type=int, help="Sometimes it is helpful to increase/decrease the stock level to make projections - default = 1.")
 parser.add_argument("--location", default="shopify", type=str, help="Only include stock that is handled by shopify - default = shopify.")
-parser.add_argument("--delay", default=3, type=int, help="Unless you are on Shopify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 3")
+parser.add_argument("--delay", default=2, type=int, help="Unless you are on Shopify Plus, your API Rates will be limited, so a small delay is made inbetween calls.  Default = 2")
 
 args = parser.parse_args()
 
@@ -34,6 +37,8 @@ apiURL = os.getenv("SHOPIFY_URL")
 apiVersion = os.getenv("SHOPIFY_API_VERSION")
 
 if __name__ == '__main__':
+  # Create a dictionary to store summary data
+  counts = dict()
 
   # Open the output file and loop through each keyword one by one
   with open(args.out, 'w+', encoding='utf-8') as output_file:
@@ -50,7 +55,8 @@ if __name__ == '__main__':
     # First get a total count of the products from shopify.  This gives a maxcount figure for the progress bar.
     maxCount = shopify.Product.count()
     currentCount = 0
-    
+    logging.info(f'Processing {maxCount} products.')
+
     # Showing a progress bar to the user.
     with Bar('Processing ' + str(maxCount) + ' products.', max=maxCount) as bar:
       
@@ -81,6 +87,12 @@ if __name__ == '__main__':
           
           productTotal = round(productCost * productQty,2)
 
+          #Update the Summary dictionary
+          if productType in counts:
+              counts[productType] += productTotal
+          else:
+              counts[productType] = productTotal
+
           # Write the product data for this row to the csv file.
           if productLocation == args.location:
             runningQty += productQty
@@ -98,6 +110,12 @@ if __name__ == '__main__':
         products = shopify.Product.find(from_=next_url)
 
     csv_writer.writerow(["", "", "", "", runningQty, round(runningTotal,2)])
+    logging.info(f'Product Count: {maxCount}.')
+    logging.info(f'Total Variant Count: {runningQty}.')
+    logging.info(f'Inventory Total: {round(runningTotal,2)}.')
+
+    for key, val in counts.items():
+      logging.info(f'{key}: {round(val,2)}.')
 
     # Close the Shopify session
     shopify.ShopifyResource.clear_session()
